@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, View } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, Platform } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { Button, Input, Image } from 'react-native-elements'
 
@@ -14,7 +14,7 @@ const LoginScreen = ({ navigation }) => {
         >
             <StatusBar style='light'/>
             <Image 
-                source={{uri: 'https://blog.mozilla.org/internetcitizen/files/2018/08/signal-logo.png' }}
+                source={{ uri: 'https://blog.mozilla.org/internetcitizen/files/2018/08/signal-logo.png' }}
                 style={{ width: 200, height: 200 }}
             />
             <View style={styles.inputContainer}>
@@ -43,7 +43,7 @@ const LoginScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('Register')}
                 containerStyle={styles.button}
             />
-
+            <View style={Platform.OS === "ios" ? { height: 150 } : { height: 0 }} />
         </KeyboardAvoidingView>
     )
 }
