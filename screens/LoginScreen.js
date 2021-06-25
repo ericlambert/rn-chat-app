@@ -12,7 +12,6 @@ const LoginScreen = ({ navigation }) => {
         const unsubscribe = auth.onAuthStateChanged((authUser) => {
             if (authUser) {
                 navigation.replace('Home');
-                //navigation.navigate('Home');
             }
         });
         return unsubscribe;
@@ -29,23 +28,23 @@ const LoginScreen = ({ navigation }) => {
             style={styles.container}
         >
             <StatusBar style='light'/>
+
             <Image 
                 source={{ uri: 'https://blog.mozilla.org/internetcitizen/files/2018/08/signal-logo.png' }}
                 style={{ width: 200, height: 200 }}
             />
+
             <View style={styles.inputContainer}>
                 <Input 
                     placeholder='Email'
                     autoFocus
                     type='email'
-                    value={email}
                     onChangeText={setEmail}
                 />
                 <Input 
                     placeholder='Password'
                     secureTextEntry
                     type='password'
-                    value={password}
                     onChangeText={setPassword}
                 />
             </View>
@@ -55,12 +54,14 @@ const LoginScreen = ({ navigation }) => {
                 containerStyle={styles.button}
                 onPress={signIn}
             />
+
             <Button 
                 title='Register'
                 type='outline'
                 onPress={() => navigation.navigate('Register')}
                 containerStyle={styles.button}
             />
+            
             <View style={Platform.OS === "ios" ? { height: 150 } : { height: 0 }} />
         </KeyboardAvoidingView>
     )
