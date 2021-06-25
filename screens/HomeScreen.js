@@ -2,8 +2,8 @@ import React, { useLayoutEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Button, Input, Image } from 'react-native-elements'
 import { StatusBar } from 'expo-status-bar'
+import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import { Avatar } from 'react-native-elements'
-
 import { auth } from '../firebase';
 
 const HomeScreen = ( {navigation}) => {
@@ -23,6 +23,22 @@ const HomeScreen = ( {navigation}) => {
                             source={{uri: auth?.currentUser?.photoURL}}
                             onPress={ signOut }
                         />
+                    </TouchableOpacity>
+                </View>
+            ),
+
+            headerRight: () => (
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: 60,
+                    marginRight: 20,
+                }}>
+                    <TouchableOpacity activeOpacity={0.5}>
+                        <AntDesign name='camerao' size={24} color='black'/>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.5}>
+                        <SimpleLineIcons name='pencil' size={24} color='black'/>
                     </TouchableOpacity>
                 </View>
             )
