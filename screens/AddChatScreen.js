@@ -31,16 +31,16 @@ const AddChatScreen = ({ navigation }) => {
         
         <View style={styles.container}>
             <StatusBar style='light'/>
-            <Input 
-                placeholder='Enter a chat name'
-                // leftIcon={
-                //     <Icon 
-                //         name='wechat'
-                //         style='antdesign'
-                //         size={24}
-                //         color='black'
-                //     />
-                // }
+            <Input
+                placeholder="Enter a chat name"
+                leftIcon={
+                    <Icon 
+                        name="wechat"
+                        type="antdesign"
+                        size={24}
+                        color="black"
+                    />
+                }
                 onChangeText={setChatName}
                 onSubmitEditing={createChat}
             />
