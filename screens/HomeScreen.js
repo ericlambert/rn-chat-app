@@ -8,6 +8,7 @@ import { auth } from '../firebase';
 
 const HomeScreen = ( {navigation}) => {
 
+    // useLayoutEffect sets the home screen's header
     useLayoutEffect(() => {
         navigation.setOptions({
             title: 'Chats',
@@ -15,6 +16,7 @@ const HomeScreen = ( {navigation}) => {
             headerTitleStyle: { color: 'black', fontStyle: 'bold'},
             headerTintColor: { color: 'black' },
 
+            // left header shows the current users avatar. if clicked log out
             headerLeft: () => (
                 <View style={{marginLeft: 20}}>
                     <TouchableOpacity activeOpacity={0.5}>
@@ -27,6 +29,7 @@ const HomeScreen = ( {navigation}) => {
                 </View>
             ),
 
+            // right header has a icon for adding a chat and a (non-function)
             headerRight: () => (
                 <View style={{
                     flexDirection: 'row',
@@ -35,15 +38,22 @@ const HomeScreen = ( {navigation}) => {
                     marginRight: 20,
                 }}>
                     <TouchableOpacity activeOpacity={0.5}>
-                        <AntDesign name='camerao' size={24} color='black'/>
+                        <AntDesign 
+                            name='camerao'
+                            size={24}
+                            color='black'/>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.5}>
-                        <SimpleLineIcons name='pencil' size={24} color='black'/>
+                        <SimpleLineIcons 
+                            onPress={() => navigation.navigate('AddChat')}
+                            name='pencil' 
+                            size={24}
+                            color='black'/>
                     </TouchableOpacity>
                 </View>
             )
         })
-    })
+    }, [navigation])
 
     function signOut() {
         auth.signOut().then(() => {
