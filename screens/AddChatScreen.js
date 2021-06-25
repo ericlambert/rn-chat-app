@@ -17,7 +17,7 @@ const AddChatScreen = ({ navigation }) => {
         })
     }, [navigation]);
 
-    // https://www.youtube.com/watch?v=V_Kr9OSfDeU
+    // async|await https://www.youtube.com/watch?v=V_Kr9OSfDeU
     async function createChat() {
         try {
             await db.collection('chats').add({chatName});

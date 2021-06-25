@@ -1,12 +1,32 @@
-import React, { useLayoutEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Button, Input, Image } from 'react-native-elements'
 import { StatusBar } from 'expo-status-bar'
+
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import { Avatar } from 'react-native-elements'
-import { auth } from '../firebase';
+
+import { auth, db } from '../firebase';
+
+import CustomListItem from '../components/CustomListItem';
 
 const HomeScreen = ( {navigation}) => {
+
+    const [chats, setChats] = useState([]);
+
+    useEffect(() => {
+        const unsubscribe = db
+            .collection('chats')
+            .onSnapshot((snapshot) => {
+                setChats(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                )
+            });
+        return unsubscribe;
+    }, [])
 
     // useLayoutEffect sets the home screen's header
     useLayoutEffect(() => {
@@ -61,11 +81,23 @@ const HomeScreen = ( {navigation}) => {
         })
     }
 
+    function createItem(chat) {
+        const {id, data: { chatName }} = chat;
+        return (
+            <CustomListItem 
+                id={id}
+                chatName={chatName}
+            />
+        )
+    }
+
     return (
-        <View>
+        <SafeAreaView>
             <StatusBar style='dark'/>
-            <Text>Home Screen</Text>
-        </View>
+            <ScrollView>
+                { chats.map(createItem) }
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
