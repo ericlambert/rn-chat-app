@@ -28,7 +28,6 @@ const AddChatScreen = ({ navigation }) => {
     }
 
     return (
-        
         <View style={styles.container}>
             <StatusBar style='light'/>
             <Input

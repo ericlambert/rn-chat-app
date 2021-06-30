@@ -3,11 +3,13 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { ListItem, Avatar } from 'react-native-elements';
 
-const CustomListItem = ({ id, chatName }) => {
+const CustomListItem = ({ id, chatName, enterChat }) => {
     return (
-        <ListItem key = { id }>
+        <ListItem 
+            key = { id }
+            onPress = { () => enterChat(id, chatName) }>
             <Avatar
-                source={{uri: 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png', }}
+                source={{uri: 'https://www.bigleaf.net/wp-content/uploads/2017/10/avatar-placeholder.png', }}
             />
             <ListItem.Content>
                 <ListItem.Title style={styles.title}>{chatName}</ListItem.Title>

@@ -1,6 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { Button, Input, Image } from 'react-native-elements'
+import { 
+    SafeAreaView, 
+    ScrollView, 
+    StyleSheet, 
+    Text, 
+    View, 
+    TouchableOpacity,
+    Alert, 
+} from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
@@ -41,9 +48,9 @@ const HomeScreen = ( {navigation}) => {
                 <View style={{marginLeft: 20}}>
                     <TouchableOpacity activeOpacity={0.5}>
                         <Avatar
+                            onPress={ askSignOut }
                             rounded
                             source={{uri: auth?.currentUser?.photoURL}}
-                            onPress={ signOut }
                         />
                     </TouchableOpacity>
                 </View>
@@ -75,10 +82,25 @@ const HomeScreen = ( {navigation}) => {
         })
     }, [navigation])
 
+    function askSignOut() {
+        Alert.alert("Sign Out", "Are you really sure?", [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => signOut() },
+        ]);
+    }
+
     function signOut() {
         auth.signOut().then(() => {
             navigation.replace('Login');
         })
+    }
+
+    function enterChat(id, chatName) {
+        navigation.navigate('Chat', {id, chatName})
     }
 
     function createItem(chat) {
@@ -87,6 +109,7 @@ const HomeScreen = ( {navigation}) => {
             <CustomListItem 
                 id={id}
                 chatName={chatName}
+                enterChat={enterChat}
             />
         )
     }
